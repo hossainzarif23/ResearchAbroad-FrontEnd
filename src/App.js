@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route} from "react-router-dom";
+import Login from "./Pages/Login";
+import Home from "./Pages/Home";
+import Topbar from "./Components/Topbar";
+import { Box } from "@mui/material";
+import { useState } from "react";
+import UniversityRecommendation from "./Pages/UniversityRecommendation";
 
 function App() {
+  // let firstButtonText = 'Login'
+  // let secondButtonText = 'Signup'
+  const [firstButtonText, setFirstButtonText] = useState('Login');
+  const [secondButtonText, setSecondButtonText] = useState('SignUp');
+
+  const changeTopBarButtonTexts = () => {
+    console.log("topBarChanged")
+    setFirstButtonText('Profile')
+    setSecondButtonText('Logout')
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Box sx={{backgroundColor: '#EDC150', height: '100vh', width: '100vw'}}>
+        <Topbar firstButtonText={firstButtonText} secondButtonText={secondButtonText}/>
+        <Routes>
+          <Route path="/" exact element={<Login changeTopBar={changeTopBarButtonTexts}/>}/>
+          <Route path="/home" element={<Home/>}/>
+          <Route path="/recommendation" element={<UniversityRecommendation/>}/>
+        </Routes>
+      </Box>
+    </BrowserRouter>
   );
 }
 
