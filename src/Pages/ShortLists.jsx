@@ -17,6 +17,18 @@ const ShortLists = () => {
     const data = res.data;
     if (data.responseCode === 1) {
       console.log(data.shortlists);
+      for (let i = 0; i < data.shortlists.length; i++) {
+        const professorusername = data.shortlists[i].username;
+        const res2 = await axios.post("http://localhost:8000/professor/matchinginterests", {username, professorusername});
+        const data2 = res2.data;
+        if (data2.interests.length > 0) {
+          data.shortlists[i].matchInterest = 1;
+        }
+        else {
+          data.shortlists[i].matchInterest = 0;
+        }
+      }
+      data.shortlists.sort(function(a, b){return b.matching + 100 * b.matchInterest - a.matching - 100 * a.matchInterest})
       setShortlists(data.shortlists);
     }
   }
@@ -32,11 +44,12 @@ const ShortLists = () => {
           <h2 style={{textAlign: 'center'}}>Shortlisted Colleges with Supervisors</h2>
           {shortlists.map(tuple => (
             <div key={tuple.username}>
-              <ShortlistedTuples professorusername={tuple.username} college={tuple.uniname} professor={tuple.name} professorlink={tuple.personalweblink} universitylink={tuple.link} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
+              <ShortlistedTuples professorusername={tuple.username} college={tuple.uniname} professor={tuple.name} professorlink={tuple.personalweblink} universitylink={tuple.link} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked} matching={tuple.matching}/>
             </div>
           ))}
         </Box>
       </Stack>
+      <div style={{height: '10vh'}}></div>
     </div>
   )
 }

@@ -80,7 +80,7 @@ const RecommendedTuple = (props) => {
     checkShortlisted();
   }, []);
   return (
-    <Box height='20vh' borderBottom='1px solid #AB8C8C' sx={{backgroundColor: '#D9D9D9'}}>
+    <Box minHeight='10vh' borderBottom='1px solid #AB8C8C' sx={{backgroundColor: '#D9D9D9'}}>
         <Stack direction='row' px='20px' pt='20px' pb='10px' justifyContent='space-between' alignItems='center'>
             <div>
               <Link to={props.universitylink} color='#AB8C8C'>{props.college}</Link>
@@ -89,16 +89,17 @@ const RecommendedTuple = (props) => {
               <div><b>OffCampusCost:</b> ${university.offcampuscost}/yr</div>
               <div><b>Tutionfee: </b> ${professor.tutionfee}/yr</div>
             </div>
-            <div>
+            <div style={{width: '250px'}}>
               <div><b>Supervisor: </b> <Link to={props.professorlink} color='#AB8C8C'>{props.professor}</Link></div>
               {props.matching !== undefined ? <div><b>Matching: </b>{props.matching}</div> : null}
               <div><b>Department: </b>{professor.deptname}</div>
               {matchedInterestString !== '' ? <div><b>Matched Interests: </b>{matchedInterestString}</div> : null}
             </div>
         </Stack>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
+        <div style={{display: 'flex', justifyContent: 'center', paddingBottom: '10'}}>
             {isShortlisted === 0 ? <Button variant='contained' size='small' onClick={addToShortList}>Add To Shortlist</Button> : <Button variant='contained' size='small' onClick={removeFromShortList}>Remove From Shortlist</Button>}
         </div>
+        <div style={{height: '2vh'}}></div>
     </Box>
   )
 }

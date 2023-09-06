@@ -13,6 +13,7 @@ const ProfessorExploration = () => {
   const username = location.state.username;
   const [tuples, setTuples] = useState([])
   const [interests, setInterests] = useState([])
+  const [studentInterests, setStudentInterests] = useState([]);
   const [country, setCountry] = useState('')
   const [state, setState] = useState('')
   const [city, setCity] = useState('')
@@ -21,7 +22,7 @@ const ProfessorExploration = () => {
   const [department, setDepartment] = useState('');
   const [ranklow, setRanklow] = useState('');
   const [rankhigh, setRankhigh] = useState('');
-  const [query, setQuery] = useState({username: username, interests: interests, country: country, state: state, city: city, program: program, field: field, department: department, ranklow: ranklow, rankhigh: rankhigh});
+  const [query, setQuery] = useState({username: username, interests: interests, country: country, state: state, city: city, program: program, field: field, department: department, ranklow: ranklow, rankhigh: rankhigh, studentInterests: studentInterests});
   const loadExploredProfessors = async() => {
     const res = await axios.post("http://localhost:8000/exploreprofessor", {query});
     const data = res.data;
@@ -39,7 +40,7 @@ const ProfessorExploration = () => {
     }
   }
   const doProfessorExploration = () => {
-    setQuery({username, interests, country, state, city, program, field, department, ranklow, rankhigh});
+    setQuery({username, interests, country, state, city, program, field, department, ranklow, rankhigh, studentInterests});
   }
   useEffect(() => {
     loadInterests();
@@ -73,7 +74,7 @@ const ProfessorExploration = () => {
           </FormControl>
           <FormControl>
           <InputLabel id="demo-simple-select-standard-label">field</InputLabel>
-            <Select value={field} label="field" onChange={(e) => setField(e.target.value)} style={{backgroundColor: 'white', width: '80%'}}>
+          <Select value={studentInterests} label="interests" multiple onChange={(e) => setStudentInterests(e.target.value)} style={{backgroundColor: 'white', width: '80%'}}>
               {interests.map(interest => (
                 <MenuItem key={interest.name} value={interest.name}>{interest.name}</MenuItem>
               ))}

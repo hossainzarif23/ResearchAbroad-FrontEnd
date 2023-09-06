@@ -13,6 +13,7 @@ const UniversityRecommendation = () => {
   const username = location.state.username;
   const [tuples, setTuples] = useState([])
   const [interests, setInterests] = useState([])
+  const [studentInterests, setStudentInterests] = useState([]);
   const [country, setCountry] = useState('')
   const [state, setState] = useState('')
   const [city, setCity] = useState('')
@@ -21,7 +22,7 @@ const UniversityRecommendation = () => {
   const [department, setDepartment] = useState('');
   const [ranklow, setRanklow] = useState('');
   const [rankhigh, setRankhigh] = useState('');
-  const [query, setQuery] = useState({username: username, interests: interests, country: country, state: state, city: city, program: program, field: field, department: department, ranklow: ranklow, rankhigh: rankhigh});
+  const [query, setQuery] = useState({username: username, interests: interests, country: country, state: state, city: city, program: program, field: field, department: department, ranklow: ranklow, rankhigh: rankhigh, studentInterests: studentInterests});
   //console.log(username);
   const loadRecommendedTuples = async() => {
     //console.log(query);
@@ -46,7 +47,7 @@ const UniversityRecommendation = () => {
     loadRecommendedTuples();
   }, [query]);
   const doRecommendation = () => {
-    setQuery({username, interests, country, state, city, program, field, department, ranklow, rankhigh});
+    setQuery({username, interests, country, state, city, program, field, department, ranklow, rankhigh, studentInterests});
   }
   return (
     <>
@@ -74,7 +75,7 @@ const UniversityRecommendation = () => {
           </FormControl>
           <FormControl>
           <InputLabel id="demo-simple-select-standard-label">field</InputLabel>
-            <Select value={field} label="field" onChange={(e) => setField(e.target.value)} style={{backgroundColor: 'white', width: '80%'}}>
+            <Select value={studentInterests} label="interests" multiple onChange={(e) => setStudentInterests(e.target.value)} style={{backgroundColor: 'white', width: '80%'}}>
               {interests.map(interest => (
                 <MenuItem key={interest.interestfield} value={interest.interestfield}>{interest.interestfield}</MenuItem>
               ))}
