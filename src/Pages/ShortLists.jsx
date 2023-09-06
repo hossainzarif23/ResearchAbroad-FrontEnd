@@ -28,7 +28,7 @@ const ShortLists = () => {
       <Topbar2/>
       <Stack direction='row' spacing={4} divider={<Divider orientation="vertical" flexItem />}>
         <Sidebar selected="Shortlist"/>
-        <Box sx={{height: '70vh', width: '60%'}}>
+        <Box sx={{minHeight: '70vh', width: '60%'}}>
           <h2 style={{textAlign: 'center'}}>Shortlisted Colleges with Supervisors</h2>
           {shortlists.map(tuple => (
             <div key={tuple.username}>
