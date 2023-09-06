@@ -15,7 +15,6 @@ const LoginForm = (props) => {
     const res = await axios.post("http://localhost:8000/authentication/login", {username, password});
     const data = res.data;
     if (data.responseCode === 1) {
-      props.changeTopBar()
       navigate("/home", {state: {username: username, type: data.type}});
     }
   }

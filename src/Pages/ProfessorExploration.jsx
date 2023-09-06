@@ -1,14 +1,14 @@
+import React, { useState, useEffect } from 'react'
 import { Stack, Divider, Box, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material'
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 import { InputField } from '../Components/InputFields/InputField';
-import RecommendedTuple from '../Components/RecommendedTuple';
-import Sidebar from '../Components/Sidebar';
-import Topbar2 from '../Components/Topbar2';
+import Sidebar from '../Components/Sidebar'
+import Topbar2 from '../Components/Topbar2'
+import RecommendedTuple from '../Components/RecommendedTuple'
 
-const UniversityRecommendation = () => {
+const ProfessorExploration = () => {
   const location = useLocation();
   const username = location.state.username;
   const [tuples, setTuples] = useState([])
@@ -22,42 +22,41 @@ const UniversityRecommendation = () => {
   const [ranklow, setRanklow] = useState('');
   const [rankhigh, setRankhigh] = useState('');
   const [query, setQuery] = useState({username: username, interests: interests, country: country, state: state, city: city, program: program, field: field, department: department, ranklow: ranklow, rankhigh: rankhigh});
-  //console.log(username);
-  const loadRecommendedTuples = async() => {
-    //console.log(query);
-    const res = await axios.post("http://localhost:8000/recommendation", {query});
+  const loadExploredProfessors = async() => {
+    const res = await axios.post("http://localhost:8000/exploreprofessor", {query});
     const data = res.data;
     if (data.responseCode === 1) {
-      //console.log(data.tuples);
+      console.log(data.tuples);
       setTuples(data.tuples);
     }
   }
   const loadInterests = async() => {
-    const res = await axios.post("http://localhost:8000/recommendation/interests", {query});
+    const res = await axios.post("http://localhost:8000/exploreprofessor/interests");
     const data = res.data;
     if (data.responseCode === 1) {
+      console.log(data.interests);
       setInterests(data.interests);
     }
+  }
+  const doProfessorExploration = () => {
+    setQuery({username, interests, country, state, city, program, field, department, ranklow, rankhigh});
   }
   useEffect(() => {
     loadInterests();
   }, []);
   useEffect(() =>{
-    loadRecommendedTuples();
+    loadExploredProfessors();
   }, [query]);
-  const doRecommendation = () => {
-    setQuery({username, interests, country, state, city, program, field, department, ranklow, rankhigh});
-  }
   return (
-    <>
+    <div>
       <Topbar2/>
       <Stack direction='row' spacing={4} divider={<Divider orientation="vertical" flexItem />}>
-        <Sidebar selected="Unirec"/>
+        <Sidebar selected="ProfExp"/>
         <Box sx={{height: '70vh', width: '60%'}}>
-          <h2 style={{textAlign: 'center'}}>Recommended Colleges with Supervisors</h2>
+          <h2 style={{textAlign: 'center'}}>Search Results</h2>
           {tuples.map(tuple => (
             <div key={tuple.username}>
-              <RecommendedTuple professorusername={tuple.username} college={tuple.uniname} professor={tuple.name} professorlink={tuple.personalweblink} universitylink={tuple.link} matching={tuple.matching}/>
+              <RecommendedTuple professorusername={tuple.username} college={tuple.uniname} professor={tuple.name} professorlink={tuple.personalweblink} universitylink={tuple.link}/>
             </div>
           ))}
         </Box>
@@ -76,18 +75,18 @@ const UniversityRecommendation = () => {
           <InputLabel id="demo-simple-select-standard-label">field</InputLabel>
             <Select value={field} label="field" onChange={(e) => setField(e.target.value)} style={{backgroundColor: 'white', width: '80%'}}>
               {interests.map(interest => (
-                <MenuItem key={interest.interestfield} value={interest.interestfield}>{interest.interestfield}</MenuItem>
+                <MenuItem key={interest.name} value={interest.name}>{interest.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
           <InputField type="text" value={department} setValue={setDepartment} label="department"/>
           <InputField type="text" value={ranklow} setValue={setRanklow} label="uni-rank-lower-limit"/>
           <InputField type="text" value={rankhigh} setValue={setRankhigh} label="uni-rank-higher-limit"/>
-          <Button variant='contained' onClick={doRecommendation} style={{width: '80%'}}>Submit</Button>      
+          <Button variant='contained' onClick={doProfessorExploration} style={{width: '80%'}}>Submit</Button>      
         </Box>
       </Stack>
-    </>
+    </div>
   )
 }
 
-export default UniversityRecommendation
+export default ProfessorExploration
