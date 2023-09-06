@@ -19,11 +19,14 @@ const RecommendedTuple = (props) => {
     const data = res.data;
     if (data.responseCode === 1) {
       setInterests(data.interests);
+      console.log(data.interests);
       let interestString = '';
       for (let i = 0; i < data.interests.length - 1; i++) {
         interestString += data.interests[i].interestfield + ", ";
       }
-      interestString += data.interests[data.interests.length - 1].interestfield;
+      if (data.interests.length > 0) {
+        interestString += data.interests[data.interests.length - 1].interestfield;
+      }
       console.log(data.interests);
       console.log(interestString);
       setMatchedInterestString(interestString);
@@ -90,7 +93,7 @@ const RecommendedTuple = (props) => {
               <div><b>Supervisor: </b> <Link to={props.professorlink} color='#AB8C8C'>{props.professor}</Link></div>
               {props.matching !== undefined ? <div><b>Matching: </b>{props.matching}</div> : null}
               <div><b>Department: </b>{professor.deptname}</div>
-              <div><b>Matched Interests: </b>{matchedInterestString}</div>
+              {matchedInterestString !== '' ? <div><b>Matched Interests: </b>{matchedInterestString}</div> : null}
             </div>
         </Stack>
         <div style={{display: 'flex', justifyContent: 'center'}}>

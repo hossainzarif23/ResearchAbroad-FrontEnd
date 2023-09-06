@@ -39,7 +39,7 @@ const UniversityExploration = () => {
       <Topbar2/>
       <Stack direction='row' spacing={4} divider={<Divider orientation="vertical" flexItem />}>
         <Sidebar selected="UniExp"/>
-        <Box sx={{height: '70vh', width: '60%'}}>
+        <Box sx={{minHeight: '70vh', width: '60%'}}>
           <h2 style={{textAlign: 'center'}}>Search Results</h2>
           {universities.map(university => (
             <div key={university.name}>
@@ -63,6 +63,7 @@ const UniversityExploration = () => {
           <Button variant='contained' onClick={doUniversityExploration} style={{width: '80%'}}>Submit</Button>      
         </Box>
       </Stack>
+      <div style={{height: '10vh'}}></div>
     </div>
   )
 }

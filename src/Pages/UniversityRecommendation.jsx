@@ -53,7 +53,7 @@ const UniversityRecommendation = () => {
       <Topbar2/>
       <Stack direction='row' spacing={4} divider={<Divider orientation="vertical" flexItem />}>
         <Sidebar selected="Unirec"/>
-        <Box sx={{height: '70vh', width: '60%'}}>
+        <Box sx={{minHeight: '70vh', width: '60%'}}>
           <h2 style={{textAlign: 'center'}}>Recommended Colleges with Supervisors</h2>
           {tuples.map(tuple => (
             <div key={tuple.username}>
@@ -86,6 +86,7 @@ const UniversityRecommendation = () => {
           <Button variant='contained' onClick={doRecommendation} style={{width: '80%'}}>Submit</Button>      
         </Box>
       </Stack>
+      <div style={{height: '10vh'}}></div>
     </>
   )
 }

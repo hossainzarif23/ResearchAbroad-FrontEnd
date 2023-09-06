@@ -26,7 +26,7 @@ const ProfessorExploration = () => {
     const res = await axios.post("http://localhost:8000/exploreprofessor", {query});
     const data = res.data;
     if (data.responseCode === 1) {
-      console.log(data.tuples);
+      //console.log(data.tuples);
       setTuples(data.tuples);
     }
   }
@@ -34,7 +34,7 @@ const ProfessorExploration = () => {
     const res = await axios.post("http://localhost:8000/exploreprofessor/interests");
     const data = res.data;
     if (data.responseCode === 1) {
-      console.log(data.interests);
+      //console.log(data.interests);
       setInterests(data.interests);
     }
   }
@@ -52,7 +52,7 @@ const ProfessorExploration = () => {
       <Topbar2/>
       <Stack direction='row' spacing={4} divider={<Divider orientation="vertical" flexItem />}>
         <Sidebar selected="ProfExp"/>
-        <Box sx={{height: '70vh', width: '60%'}}>
+        <Box sx={{minHeight: '70vh', width: '60%'}}>
           <h2 style={{textAlign: 'center'}}>Search Results</h2>
           {tuples.map(tuple => (
             <div key={tuple.username}>
@@ -85,6 +85,7 @@ const ProfessorExploration = () => {
           <Button variant='contained' onClick={doProfessorExploration} style={{width: '80%'}}>Submit</Button>      
         </Box>
       </Stack>
+      <div style={{height: '10vh'}}></div>
     </div>
   )
 }

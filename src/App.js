@@ -12,7 +12,7 @@ import UniversityExploration from "./Pages/UniversityExploration";
 function App() {
   return (
     <BrowserRouter>
-      <Box sx={{backgroundColor: '#EDC150', height: '100vh', width: '100vw'}}>
+      <Box sx={{backgroundColor: '#EDC150', minHeight: '100vh', width: '100vw'}}>
         {/* <Topbar firstButtonText={firstButtonText} secondButtonText={secondButtonText}/> */}
         <Routes>
           <Route path="/" exact element={<Login/>}/>
